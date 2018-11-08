@@ -2,7 +2,7 @@
 
 Material UI input component for internationl phone number input
 
-[You can find strorybook demo here](http://haystack.sh/material-ui-phone-input/)
+[You can find strorybook demo here](https://slomski.github.io/material-ui-phone-input/)
 
 ## Usage
 
