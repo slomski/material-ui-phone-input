@@ -3,7 +3,7 @@ import PhoneInput from '../src/PhoneInput';
 
 export default class Example extends React.Component {
   state = {
-    value: '+48536009544'
+    value: '+48501502503'
   };
 
   handleChange = value => {
@@ -17,8 +17,7 @@ export default class Example extends React.Component {
         defaultCountry="pl"
         value={value}
         onChange={this.handleChange}
-        label="Phone input"
-        textFieldProps={{ fullWidth: true }}
+        textFieldProps={{ label: 'Phone input', fullWidth: true }}
       />
     );
   }
