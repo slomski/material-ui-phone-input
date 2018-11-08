@@ -12,6 +12,14 @@ export default class Example extends React.Component {
 
   render() {
     const { value } = this.state;
-    return <PhoneInput defaultCountry="pl" value={value} onChange={this.handleChange} label="Phone input" />;
+    return (
+      <PhoneInput
+        defaultCountry="pl"
+        value={value}
+        onChange={this.handleChange}
+        label="Phone input"
+        textFieldProps={{ fullWidth: true }}
+      />
+    );
   }
 }

@@ -13,6 +13,7 @@ import parse from 'autosuggest-highlight/parse';
 import Popper from '@material-ui/core/Popper';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import Fade from '@material-ui/core/Fade';
+import errors from './errors';
 import countries from './countries';
 import FlagIcon from '../FlagIcon';
 
@@ -43,6 +44,7 @@ function renderInputComponent(inputProps) {
 
   return (
     <TextField
+      variant="filled"
       fullWidth
       InputProps={{
         inputRef: node => {
@@ -58,11 +60,8 @@ function renderInputComponent(inputProps) {
   );
 }
 
-const defaultValue = { value: 'PL', label: '', dialCode: '+48' };
-
 function getSuggestions(country) {
   const inputValue = deburr(country.trim()).toLowerCase();
-  // console.log(inputValue);
   const inputLength = inputValue.length;
   let count = 0;
 
@@ -70,11 +69,9 @@ function getSuggestions(country) {
     ? []
     : suggestionsLists.filter(suggestion => {
         const keep = count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
-
         if (keep) {
           count += 1;
         }
-
         return keep;
       });
 }
@@ -86,17 +83,16 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
   return (
     <MenuItem selected={isHighlighted} component="div">
       <div>
-        {parts.map(
-          (part, index) =>
-            part.highlight ? (
-              <span key={String(index)} style={{ fontWeight: 500 }}>
-                {part.text}
-              </span>
-            ) : (
-              <strong key={String(index)} style={{ fontWeight: 400 }}>
-                {part.text}
-              </strong>
-            )
+        {parts.map((part, index) =>
+          part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 500 }}>
+              {part.text}
+            </span>
+          ) : (
+            <strong key={String(index)} style={{ fontWeight: 400 }}>
+              {part.text}
+            </strong>
+          )
         )}
       </div>
     </MenuItem>
@@ -110,15 +106,16 @@ function getSuggestionValue(suggestion) {
 class PhoneInput extends Component {
   state = {
     isOpen: false,
-    country: defaultValue.label,
-    // popper: '',
-    suggestions: []
+    suggestion: '',
+    suggestions: [],
+    error: '',
+    numberInfo: {}
   };
 
-  // static getDerivedStateFromProps = (props, state) => {
-  //   console.log(props);
-  //   console.log(state);
-  // };
+  componentDidMount = () => {
+    const { value } = this.props;
+    if (value.length > 3) this.parseNumber(value);
+  };
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
@@ -132,31 +129,55 @@ class PhoneInput extends Component {
     });
   };
 
-  handleChange = name => (event, { newValue }) => {
-    // console.log(newValue);
+  onSuggestionSelected = (event, { suggestionValue }) => {
+    const { onChange } = this.props;
+    const { numberInfo } = this.state;
+    const country = this.findCountryByName(suggestionValue);
+    let newVal = '';
+    if (country) {
+      newVal = `${country.dialCode}`;
+      if (numberInfo) {
+        newVal += `${numberInfo.nationalNumber}`;
+      }
+      onChange(newVal);
+      this.setState({ numberInfo: this.parseNumber(newVal) });
+    }
+  };
+
+  handleSuggestionChange = (event, { newValue }) => {
     this.setState({
-      [name]: newValue
+      suggestion: newValue
     });
   };
 
-  toggleOpen = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+  toggleOpen = event => {
+    const { currentTarget } = event;
+    this.setState(state => ({ anchorEl: currentTarget, isOpen: !state.isOpen }));
   };
 
-  // onSelectChange = value => {
-  //   this.toggleOpen();
-  //   this.setState({ value });
-  // };
+  handleInputChange = event => {
+    // console.log('handle input change');
+    const { onChange } = this.props;
+    const { value } = event.target;
+    onChange(value);
+    this.parseNumber(value);
+  };
+
+  parseNumber = value => {
+    try {
+      const { metadata, ...numberInfo } = parsePhoneNumber(value);
+      this.setState({ error: '', numberInfo });
+      return numberInfo;
+    } catch (error) {
+      this.setState({ error: errors[`${error.message}`] });
+    }
+  };
+
+  findCountryByName = name => suggestionsLists.find(c => c.label.toLowerCase() === name.toLowerCase());
 
   render() {
-    const { isOpen, country, suggestions } = this.state;
-    const { classes, label, value, defaultCountry } = this.props;
-    const selectedCountry = suggestionsLists.find(c => c.label.toLowerCase() === country.toLowerCase());
-    console.log(defaultCountry);
-    console.log(value);
-    console.log(selectedCountry);
-    // const countryFromNumber =
-
+    const { isOpen, suggestion, suggestions, anchorEl, error, numberInfo } = this.state;
+    const { classes, label, value, defaultCountry, textFieldProps } = this.props;
     const autosuggestProps = {
       renderInputComponent,
       suggestions,
@@ -170,35 +191,37 @@ class PhoneInput extends Component {
       <React.Fragment>
         <TextField
           label={label}
-          // value={selectedCountry ? selectedCountry.countryCode : defaultValue.countryCode}
+          onChange={this.handleInputChange}
           value={value}
-          fullWidth
+          error={Boolean(error)}
+          helperText={Boolean(error) && error}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <Button size="small" style={{ paddingTop: 0, paddingBottom: 0 }} onClick={this.toggleOpen}>
                   <FlagIcon
-                    code={selectedCountry ? selectedCountry.value.toLowerCase() : defaultValue.value.toLowerCase()}
+                    code={numberInfo.country ? numberInfo.country.toLowerCase() : defaultCountry.toLowerCase()}
                   />
                   <ArrowDropDown />
                 </Button>
               </InputAdornment>
             )
           }}
+          {...textFieldProps}
         />
-
-        <Popper open={isOpen} transition style={{ width: '100%' }}>
+        <Popper open={isOpen} transition style={{ width: 'auto' }} anchorEl={anchorEl}>
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              <Paper>
+              <Paper elevation={1}>
                 <Autosuggest
                   focusInputOnSuggestionClick={false}
+                  onSuggestionSelected={this.onSuggestionSelected}
                   {...autosuggestProps}
                   inputProps={{
                     classes,
                     placeholder: 'Type to search...',
-                    value: country,
-                    onChange: this.handleChange('country'),
+                    value: suggestion,
+                    onChange: this.handleSuggestionChange,
                     onBlur: this.toggleOpen,
                     inputRef: node => {
                       this.popperNode = node;
@@ -212,7 +235,7 @@ class PhoneInput extends Component {
                     suggestion: classes.suggestion
                   }}
                   renderSuggestionsContainer={options => (
-                    <Paper square {...options.containerProps}>
+                    <Paper square {...options.containerProps} elevation={1}>
                       {options.children}
                     </Paper>
                   )}
