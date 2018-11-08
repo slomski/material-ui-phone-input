@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook-build": "build-storybook -c .storybook -o .static_storybook"
   },
   "author": "",
   "license": "MIT",
@@ -28,11 +29,13 @@
     "ts-jest": "^23.10.4",
     "typescript": "^3.1.6"
   },
+  "peerDependencies": {
+    "libphonenumber-js": "^1.6.5"
+  },
   "dependencies": {
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "autosuggest-highlight": "^3.1.1",
-    "libphonenumber-js": "^1.6.5",
     "lodash": "^4.17.11",
     "react": "^16.6.0",
     "react-autosuggest": "^9.4.2",

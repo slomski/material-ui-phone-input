@@ -1,3 +1,4 @@
 .history
 node_modules
 .cache
+.static_storybook
