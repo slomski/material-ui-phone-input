@@ -190,7 +190,6 @@ class PhoneInput extends Component {
     return (
       <React.Fragment>
         <TextField
-          label={label}
           onChange={this.handleInputChange}
           value={value}
           error={Boolean(error)}
