@@ -156,7 +156,6 @@ class PhoneInput extends Component {
   };
 
   handleInputChange = event => {
-    // console.log('handle input change');
     const { onChange } = this.props;
     const { value } = event.target;
     onChange(value);
@@ -164,10 +163,16 @@ class PhoneInput extends Component {
   };
 
   parseNumber = value => {
+    const { metadata } = this.props;
+    console.log(metadata);
     try {
-      const { metadata, ...numberInfo } = parsePhoneNumber(value);
-      this.setState({ error: '', numberInfo });
-      return numberInfo;
+      // const numberInfo = parsePhoneNumber(value);
+      const phoneNumber = parsePhoneNumber(value, metadata || null);
+      // console.log(phoneNumber);
+      console.log(phoneNumber.getType());
+      delete phoneNumber.metadata;
+      this.setState({ error: '', numberInfo: phoneNumber });
+      return phoneNumber;
     } catch (error) {
       this.setState({ error: errors[`${error.message}`] });
     }
@@ -177,7 +182,7 @@ class PhoneInput extends Component {
 
   render() {
     const { isOpen, suggestion, suggestions, anchorEl, error, numberInfo } = this.state;
-    const { classes, label, value, defaultCountry, textFieldProps } = this.props;
+    const { classes, value, defaultCountry, textFieldProps } = this.props;
     const autosuggestProps = {
       renderInputComponent,
       suggestions,
