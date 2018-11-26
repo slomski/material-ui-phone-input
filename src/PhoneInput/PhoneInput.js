@@ -163,22 +163,41 @@ class PhoneInput extends Component {
   };
 
   parseNumber = value => {
-    const { metadata } = this.props;
-    console.log(metadata);
+    const { metadata, validationType, onValidationSuccess, onValidationFailed } = this.props;
+    console.log('parseNumber');
     try {
-      // const numberInfo = parsePhoneNumber(value);
-      const phoneNumber = parsePhoneNumber(value, metadata || null);
-      // console.log(phoneNumber);
-      console.log(phoneNumber.getType());
-      delete phoneNumber.metadata;
-      this.setState({ error: '', numberInfo: phoneNumber });
+      const phoneNumber = parsePhoneNumber(value, metadata);
+      // delete phoneNumber.metadata;
+      const suggestion = suggestionsLists.find(e => e.value === phoneNumber.country);
+      // console.log(suggestion);
+      if (suggestion) this.setState({ suggestion: suggestion.label });
+      if (validationType && validationType.length > 0) {
+        console.log(validationType);
+        if (!validationType.includes(phoneNumber.getType())) {
+          this.setState({ error: 'Number is invalid' });
+          onValidationFailed(phoneNumber);
+        } else {
+          this.setState({ error: '' });
+          onValidationSuccess(phoneNumber);
+        }
+      } else {
+        console.log('novalidation');
+        this.setState({ error: '' });
+      }
+      console.log(phoneNumber);
+      this.setState({ numberInfo: phoneNumber });
+
       return phoneNumber;
     } catch (error) {
+      console.log('catch', error);
       this.setState({ error: errors[`${error.message}`] });
     }
+    // return {};
   };
 
   findCountryByName = name => suggestionsLists.find(c => c.label.toLowerCase() === name.toLowerCase());
+
+  findCountryByCode = code => suggestionsLists.find(c => c.value.toLowerCase() === code.toLowerCase());
 
   render() {
     const { isOpen, suggestion, suggestions, anchorEl, error, numberInfo } = this.state;
