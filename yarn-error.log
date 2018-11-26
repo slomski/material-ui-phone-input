@@ -1,11 +1,11 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add linphonenumber-js
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add -D @storybook/deployer
 
 PATH: 
   /home/igor/bin:/home/igor/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
 
 Yarn version: 
-  1.12.1
+  1.12.3
 
 Node version: 
   8.12.0
@@ -14,15 +14,15 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/linphonenumber-js: Not found
-      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:63139:18)
-      at Request.self.callback (/usr/share/yarn/lib/cli.js:124547:22)
+  Error: https://registry.yarnpkg.com/@storybook%2fdeployer: Not found
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:65894:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:129018:22)
       at emitTwo (events.js:126:13)
       at Request.emit (events.js:214:7)
-      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:125519:10)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:129990:10)
       at emitOne (events.js:116:13)
       at Request.emit (events.js:211:7)
-      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:125441:12)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:129912:12)
       at Object.onceWrapper (events.js:313:30)
       at emitNone (events.js:111:20)
 
@@ -34,7 +34,8 @@ npm manifest:
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "storybook": "start-storybook -p 9001 -c .storybook"
+      "storybook": "start-storybook -p 9001 -c .storybook",
+      "storybook-build": "build-storybook -c .storybook -o .static_storybook"
     },
     "author": "",
     "license": "MIT",
@@ -66,7 +67,8 @@ npm manifest:
       "react-autosuggest": "^9.4.2",
       "react-dom": "^16.6.0",
       "react-flag-icon-css": "^1.0.24",
-      "react-select": "^2.1.1"
+      "react-select": "^2.1.1",
+      "libphonenumber-js": "^1.6.5"
     }
   }
 
@@ -5928,6 +5930,15 @@ Lockfile:
       prelude-ls "~1.1.2"
       type-check "~0.3.2"
   
+  libphonenumber-js@^1.6.5:
+    version "1.6.5"
+    resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.6.5.tgz#062f0da56b2a25fac74197693f241268da05e6d0"
+    integrity sha512-jSAHilER/WyloJppofSDTEBeMUL4phEYoNhDo4EoHeZcyOboqtDIZ2vVJkOwNfS9u1Z8t+u4n1CKA5YfK8cvmw==
+    dependencies:
+      minimist "^1.2.0"
+      semver-compare "^1.0.0"
+      xml2js "^0.4.17"
+  
   load-json-file@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -8090,7 +8101,7 @@ Lockfile:
     optionalDependencies:
       fsevents "^1.2.3"
   
-  sax@^1.2.4:
+  sax@>=0.6.0, sax@^1.2.4:
     version "1.2.4"
     resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
     integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
@@ -8124,6 +8135,11 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/section-iterator/-/section-iterator-2.0.0.tgz#bf444d7afeeb94ad43c39ad2fb26151627ccba2a"
     integrity sha1-v0RNev7rlK1Dw5rS+yYVFifMuio=
+  
+  semver-compare@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
+    integrity sha1-De4hahyUGrN+nvsXiPavxf9VN/w=
   
   "semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.4.1, semver@^5.5, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
     version "5.6.0"
@@ -9374,6 +9390,19 @@ Lockfile:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
     integrity sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
+  
+  xml2js@^0.4.17:
+    version "0.4.19"
+    resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
+    integrity sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==
+    dependencies:
+      sax ">=0.6.0"
+      xmlbuilder "~9.0.1"
+  
+  xmlbuilder@~9.0.1:
+    version "9.0.7"
+    resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-9.0.7.tgz#132ee63d2ec5565c557e20f4c22df9aca686b10d"
+    integrity sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=
   
   xtend@^4.0.0, xtend@~4.0.1:
     version "4.0.1"
