@@ -23,14 +23,14 @@ export default class Example extends React.Component {
     const { value } = this.state;
     return (
       <PhoneInput
-        defaultCountry="pl"
+        defaultCountry="ex1"
         value={value}
         onChange={this.handleChange}
-        validationType={['FIXED_LINE_OR_MOBILE', 'PAGER']}
+        validationType={['MOBILE', 'FIXED_LINE']}
         onValidationSuccess={this.onValidationSuccess}
         onValidationFailed={this.onValidationFailed}
         textFieldProps={{ label: 'Phone input', fullWidth: true }}
-        // metadata={metadata}
+        metadata={metadata}
       />
     );
   }
