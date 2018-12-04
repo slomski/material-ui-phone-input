@@ -1,21 +1,21 @@
-import React from 'react';
-import metadata from 'libphonenumber-js/metadata.full.json';
+import * as React from 'react';
+import * as metadata from 'libphonenumber-js/metadata.full.json';
 import PhoneInput from '../src/PhoneInput';
 
-export default class Example extends React.Component {
+export default class Example extends React.Component<{}> {
   state = {
-    value: '+48501502503'
+    value: '+48501502503',
   };
 
-  handleChange = value => {
+  handleChange = (value: string) => {
     this.setState({ value });
   };
 
-  onValidationSuccess = res => {
+  onValidationSuccess = (res: string) => {
     console.log(res);
   };
 
-  onValidationFailed = err => {
+  onValidationFailed = (err: string) => {
     console.log(err);
   };
 
@@ -30,7 +30,7 @@ export default class Example extends React.Component {
         onValidationSuccess={this.onValidationSuccess}
         onValidationFailed={this.onValidationFailed}
         textFieldProps={{ label: 'Phone input', fullWidth: true }}
-        // metadata={metadata}
+        metadata={metadata}
       />
     );
   }
