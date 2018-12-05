@@ -1,27 +1,60 @@
-import * as React from 'react';
+import React from 'react';
 import { withStyles, StyledComponentProps, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import * as Autosuggest from 'react-autosuggest';
+import Autosuggest from 'react-autosuggest';
 import { SuggestionsFetchRequestedParams } from 'react-autosuggest';
-// import deburr from 'lodash/deburr';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
+import deburr from 'lodash/deburr';
 import Popper from '@material-ui/core/Popper';
-import { PhoneNumber, CountryCode, CountryCallingCode, NationalNumber, Extension, NumberType } from 'libphonenumber-js';
-import { parsePhoneNumber } from 'libphonenumber-js/custom';
+import {
+  parsePhoneNumber,
+  CountryCode,
+  CountryCallingCode,
+  NationalNumber,
+  Extension,
+  NumberType,
+} from 'libphonenumber-js';
+import { parsePhoneNumber as parsePhoneNumberCustom } from 'libphonenumber-js/custom';
 import Fade from '@material-ui/core/Fade';
-import errors from './errors';
-import countries from './countries/index';
+import countries from './countries';
 import FlagIcon from '../FlagIcon';
-import { ISuggestion } from './countries/types';
-// import { renderInputComponent } from './RenderInputComponent';
+import { ISuggestion, errors, IPhoneNumber } from '../types/index';
+import { renderInputComponent } from './renderInputComponent';
+import { renderSuggestion } from './renderSuggestion';
 
-const suggestionsLists = countries.map(option => ({
+interface IPhoneInputNumberInfo {
+  countryCallingCode: CountryCallingCode;
+  country?: CountryCode;
+  nationalNumber: NationalNumber;
+  number: string;
+  carrierCode?: string;
+  ext?: Extension;
+}
+
+interface IPhoneInputState {
+  isOpen: boolean;
+  suggestion: string;
+  suggestions: ISuggestion[];
+  error: string;
+  numberInfo: IPhoneInputNumberInfo | undefined;
+  anchorEl: EventTarget & Element | null;
+}
+
+interface IPhoneNumberInfoProps extends StyledComponentProps {
+  value: string;
+  onChange: (value: string) => void;
+  metadata?: object;
+  defaultCountry: string;
+  textFieldProps?: TextFieldProps;
+  validationType?: NumberType[];
+  onValidationSuccess?: (res: any) => void;
+  onValidationFailed?: (res: any) => void;
+}
+
+const suggestionsLists: ISuggestion[] = countries.map(option => ({
   value: option.code,
   label: option.name,
   dialCode: option.dialCode,
@@ -45,7 +78,7 @@ const styles = createStyles({
 
 function getSuggestions(country: string) {
   // console.log(country);
-  const inputValue = country.trim().toLowerCase();
+  const inputValue = deburr(country.trim()).toLowerCase();
   const inputLength = country.length;
   let count = 0;
 
@@ -60,92 +93,8 @@ function getSuggestions(country: string) {
       });
 }
 
-function renderInputComponent(inputProps: Autosuggest.InputProps<any>): React.ReactNode {
-  const { classes, inputRef = () => {}, ref, onChange } = inputProps;
-  // console.warn(other);
-  // const onChange: (event: React.FormEvent<any>, params: Autosuggest.ChangeEvent) => void
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) => {
-    // console.log(event.target.value);
-    onChange(
-      event as React.FormEvent<any>,
-      { newValue: event.target.value, method: 'type' } as Autosuggest.ChangeEvent
-    );
-  };
-
-  return (
-    <TextField
-      fullWidth
-      InputProps={{
-        inputRef: node => {
-          ref(node);
-          inputRef(node);
-        },
-        classes: {
-          input: classes.input,
-        },
-      }}
-      onChange={handleChange}
-    />
-  );
-}
-function renderSuggestion(
-  suggestion: ISuggestion,
-  { query, isHighlighted }: Autosuggest.RenderSuggestionParams
-): React.ReactNode {
-  console.log('render suggestion');
-  const matches = match(suggestion.label, query);
-  const parts = parse(suggestion.label, matches);
-
-  return (
-    <MenuItem selected={isHighlighted} component="div">
-      <div>
-        {parts.map((part, index) =>
-          part.highlight ? (
-            <span key={String(index)} style={{ fontWeight: 500 }}>
-              {part.text}
-            </span>
-          ) : (
-            <strong key={String(index)} style={{ fontWeight: 400 }}>
-              {part.text}
-            </strong>
-          )
-        )}
-      </div>
-    </MenuItem>
-  );
-}
-
 function getSuggestionValue(suggestion: ISuggestion): string {
   return suggestion.label;
-}
-
-interface IPhoneInputNumberInfo {
-  countryCallingCode: CountryCallingCode;
-  country?: CountryCode;
-  nationalNumber: NationalNumber;
-  number: string;
-  carrierCode?: string;
-  ext?: Extension;
-}
-
-interface IPhoneInputState {
-  isOpen: boolean;
-  suggestion: string;
-  suggestions: ISuggestion[];
-  error: string;
-  numberInfo: IPhoneInputNumberInfo | undefined;
-  anchorEl: EventTarget & Element | null;
-}
-
-interface IPhoneNumberInfoProps extends StyledComponentProps {
-  value: string;
-  onChange: (value: string) => void;
-  metadata: object;
-  defaultCountry: string;
-  textFieldProps: TextFieldProps;
-  validationType: NumberType[];
-  onValidationSuccess: (res: string) => void;
-  onValidationFailed: (res: string) => void;
 }
 
 class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState> {
@@ -161,8 +110,8 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       number: '',
       country: 'pl' as CountryCode,
       phone: '',
-      isPossible: true,
-      isValid: true,
+      isPossible: false,
+      isValid: false,
     },
   };
 
@@ -218,16 +167,30 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
     this.parseNumber(value);
   };
 
-  parseNumber = (value: string): PhoneNumber | undefined => {
-    const { metadata } = this.props;
-    // console.log(metadata);
+  parseNumber = (value: string): IPhoneNumber | undefined => {
+    const { metadata, validationType, onValidationSuccess, onValidationFailed } = this.props;
+    let phoneNumber: IPhoneNumber;
     try {
-      // const numberInfo = parsePhoneNumber(value);
-      const phoneNumber: PhoneNumber = parsePhoneNumber(value, metadata || null);
-      // console.log(phoneNumber);
-      // console.log(phoneNumber.getType());
-      // delete phoneNumber.metadata;
-      this.setState({ error: '', numberInfo: phoneNumber });
+      if (metadata) {
+        phoneNumber = parsePhoneNumberCustom(value, metadata);
+        const { metadata: meta, ...rest } = phoneNumber;
+        const response = {
+          ...rest,
+          type: phoneNumber.getType(),
+          isValid: phoneNumber.isValid(),
+          isPossible: phoneNumber.isPossible(),
+        };
+        if (validationType && validationType.includes(phoneNumber.getType()) && phoneNumber.isValid()) {
+          onValidationSuccess && onValidationSuccess(response);
+          this.setState({ error: '', numberInfo: phoneNumber });
+        } else {
+          onValidationFailed && onValidationFailed(response);
+          this.setState({ error: errors.INVALID_NUMBER, numberInfo: phoneNumber });
+        }
+      } else {
+        phoneNumber = parsePhoneNumber(value);
+        this.setState({ error: '', numberInfo: phoneNumber });
+      }
       return phoneNumber;
     } catch (error) {
       this.setState({ error: errors[`${error.message}`] });
@@ -235,13 +198,14 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
     }
   };
   onSuggestionsFetchRequested = ({ value }: any) => {
+    // console.log('onSuggestionsFetchRequested');
     this.setState({
       suggestions: getSuggestions(value),
     });
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
+    // console.log('onSuggestionsClearRequested');
     this.setState({
       suggestions: [],
     });
@@ -261,7 +225,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       renderSuggestion,
     };
 
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <React.Fragment>
@@ -275,7 +239,9 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
               <InputAdornment position="start">
                 <Button size="small" style={{ paddingTop: 0, paddingBottom: 0 }} onClick={this.toggleOpen}>
                   <FlagIcon
-                    code={numberInfo.country ? numberInfo.country.toLowerCase() : defaultCountry.toLowerCase()}
+                    code={
+                      numberInfo && numberInfo.country ? numberInfo.country.toLowerCase() : defaultCountry.toLowerCase()
+                    }
                   />
                   <ArrowDropDown />
                 </Button>
@@ -290,8 +256,8 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
               <Paper elevation={1}>
                 <Autosuggest
                   focusInputOnSuggestionClick={false}
+                  onSuggestionSelected={this.onSuggestionSelected}
                   {...autosuggestProps}
-                  suggestions={suggestions}
                   inputProps={{
                     classes,
                     placeholder: 'Type to search...',
