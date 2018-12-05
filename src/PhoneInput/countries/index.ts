@@ -1,6 +1,7 @@
 import countryNames from './countries.json';
+import { ICountry } from '../../types';
 
-const countries = [];
+const countries: ICountry[] = [];
 
 countryNames.forEach(country => {
   countries.push(country);
