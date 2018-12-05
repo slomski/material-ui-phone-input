@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js install
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add -D @storybook/deployer
 
 PATH: 
   /home/igor/bin:/home/igor/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
@@ -14,13 +14,17 @@ Platform:
   linux x64
 
 Trace: 
-  SyntaxError: /home/igor/Projects/material-ui-phone-input/package.json: Unexpected token o in JSON at position 752
-      at JSON.parse (<anonymous>)
-      at /usr/share/yarn/lib/cli.js:1631:59
-      at Generator.next (<anonymous>)
-      at step (/usr/share/yarn/lib/cli.js:304:30)
-      at /usr/share/yarn/lib/cli.js:315:13
-      at <anonymous>
+  Error: https://registry.yarnpkg.com/@storybook%2fdeployer: Not found
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:65894:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:129018:22)
+      at emitTwo (events.js:126:13)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:129990:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:129912:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)
 
 npm manifest: 
   {
@@ -80,7 +84,8 @@ npm manifest:
       "react-autosuggest": "^9.4.2",
       "react-dom": "^16.6.3",
       "react-flag-icon-css": "^1.0.24",
-      "react-select": "^2.1.1"
+      "react-select": "^2.1.1",
+      "libphonenumber-js": "^1.6.5"
     }
   }
 
