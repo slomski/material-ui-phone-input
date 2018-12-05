@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "build/lib",
-    "module": "commonjs",
+    "module": "es6",
     "target": "es5",
     "lib": ["es5", "es6", "es7", "es2017", "dom"],
     "sourceMap": true,
@@ -25,6 +25,6 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "stories/Example.tsx", "stories/stories.tsx", ".storybook/config.ts"],
-  "exclude": ["node_modules", "build", "scripts"]
+  "include": ["src/**/*", "stories/**/*", ".storybook/config.ts"],
+  "exclude": ["node_modules", "build", "scripts", ".history", ".cache", ".static_storybook"]
 }
