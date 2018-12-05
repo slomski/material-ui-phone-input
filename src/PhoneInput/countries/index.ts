@@ -1,5 +1,5 @@
-import * as countryNames from './countries.json';
-import { ICountry } from './types';
+import countryNames from './countries.json';
+import { ICountry } from '../../types';
 
 const countries: ICountry[] = [];
 
