@@ -7,22 +7,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-// import examples from 'libphonenumber-js/examples.mobile.json';
-// import { getExampleNumber, CountryCode } from 'libphonenumber-js';
 import Phone from '@material-ui/icons/Phone';
-// import countries from '../src/PhoneInputs/countries';
 import { numbersGenerator } from './NumbersGenerator';
-import { IPhoneNumber } from '../src/types/index';
+import { IPhoneNumber } from '../src/PhoneInput/PhoneInput';
 
 const gen: Iterator<IPhoneNumber> = numbersGenerator();
 let number: IteratorResult<IPhoneNumber> = gen.next();
-console.log(number);
 while (!number.value) {
-  console.log(number);
   number = gen.next();
 }
-
-console.log(number);
 
 export default class Full extends React.Component<{}> {
   constructor(props: any) {
