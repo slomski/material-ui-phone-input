@@ -1,20 +1,35 @@
 import React from 'react';
 import metadata from 'libphonenumber-js/metadata.full.json';
-import PhoneInput from '../src/PhoneInput';
+import PhoneInput from '../src';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import examples from 'libphonenumber-js/examples.mobile.json';
-import { getExampleNumber } from 'libphonenumber-js';
-
+// import examples from 'libphonenumber-js/examples.mobile.json';
+// import { getExampleNumber, CountryCode } from 'libphonenumber-js';
 import Phone from '@material-ui/icons/Phone';
+// import countries from '../src/PhoneInputs/countries';
+import { numbersGenerator } from './NumbersGenerator';
+import { IPhoneNumber } from '../src/types/index';
+
+const gen: Iterator<IPhoneNumber> = numbersGenerator();
+let number: IteratorResult<IPhoneNumber> = gen.next();
+console.log(number);
+while (!number.value) {
+  console.log(number);
+  number = gen.next();
+}
+
+console.log(number);
 
 export default class Full extends React.Component<{}> {
+  constructor(props: any) {
+    super(props);
+  }
   state = {
-    value: getExampleNumber('PL', examples).formatInternational(),
+    value: number.value.number,
   };
 
   handleChange = (value: string) => {
