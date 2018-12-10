@@ -1,3 +1,5 @@
+// no xk flag
+
 import React from 'react';
 import { withStyles, StyledComponentProps, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -77,7 +79,6 @@ const styles = createStyles({
 });
 
 function getSuggestions(country: string) {
-  // console.log(country);
   const inputValue = deburr(country.trim()).toLowerCase();
   const inputLength = country.length;
   let count = 0;
@@ -197,15 +198,13 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       return;
     }
   };
-  onSuggestionsFetchRequested = ({ value }: any) => {
-    // console.log('onSuggestionsFetchRequested');
+  onSuggestionsFetchRequested = ({ value }: ISuggestion) => {
     this.setState({
       suggestions: getSuggestions(value),
     });
   };
 
   onSuggestionsClearRequested = () => {
-    // console.log('onSuggestionsClearRequested');
     this.setState({
       suggestions: [],
     });
@@ -224,9 +223,6 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       getSuggestionValue,
       renderSuggestion,
     };
-
-    // console.log(this.state);
-
     return (
       <React.Fragment>
         <TextField
@@ -250,7 +246,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
           }}
           {...textFieldProps}
         />
-        <Popper open={isOpen} transition style={{ width: 'auto' }} anchorEl={anchorEl}>
+        <Popper open={isOpen} transition style={{ width: 'auto' }} anchorEl={anchorEl} placement="bottom-start">
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
               <Paper elevation={1}>
@@ -276,7 +272,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
                     suggestion: classes ? classes.suggestion : '',
                   }}
                   renderSuggestionsContainer={options => (
-                    <Paper square {...options.containerProps} elevation={1}>
+                    <Paper square {...options.containerProps} elevation={0}>
                       {options.children}
                     </Paper>
                   )}

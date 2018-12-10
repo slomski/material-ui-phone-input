@@ -1,4 +1,4 @@
-import PhoneInput from './PhoneInput';
+import PhoneInput from './PhoneInput/PhoneInput';
 
 // eslint-disable-next-line
 (window as any).__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;

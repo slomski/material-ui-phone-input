@@ -1,5 +1,5 @@
 import React from 'react';
-import PhoneInput from '../src/PhoneInput';
+import PhoneInput from '../src';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';

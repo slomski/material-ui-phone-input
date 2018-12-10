@@ -1,9 +1,9 @@
 import React from 'react';
 import FlagIconFactory from 'react-flag-icon-css';
-import styles from './PhoneInput/styles.css';
+// import styles from './PhoneInput/styles.css';
 
 const codes = {
-  ex1: 'Unknown location'
+  ex1: 'Unknown location',
 };
 
 // Please only use `FlagIconFactory` one time in your application, there is no
