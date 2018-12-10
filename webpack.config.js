@@ -20,8 +20,8 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.svg$/,
-        use: ['svg-inline-loader'],
+        test: /\.gif$/,
+        use: ['file-loader'],
       },
     ],
   },
@@ -32,9 +32,7 @@ module.exports = {
     {
       react: 'React',
       'react-dom': 'ReactDOM',
-      'react-flag-icon-css': 'react-flag-icon-css',
     },
     /@material-ui\/core\/*./,
-    /@material-ui\/icon\/*./,
   ],
 };

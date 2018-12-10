@@ -4,13 +4,19 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import examples from 'libphonenumber-js/examples.mobile.json';
-import { getExampleNumber } from 'libphonenumber-js';
 import Phone from '@material-ui/icons/Phone';
+import { numbersGenerator } from './NumbersGenerator';
+import { IPhoneNumber } from '../src/PhoneInput/PhoneInput';
+
+const gen: Iterator<IPhoneNumber> = numbersGenerator();
+let number: IteratorResult<IPhoneNumber> = gen.next();
+while (!number.value) {
+  number = gen.next();
+}
 
 export default class Simple extends React.Component<{}> {
   state = {
-    value: getExampleNumber('PL', examples).formatInternational(),
+    value: number.value.number,
   };
 
   handleChange = (value: string) => {
