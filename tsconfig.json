@@ -25,6 +25,6 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "stories/**/*", ".storybook/config.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "build", "scripts", ".history", ".cache", ".static_storybook"]
 }
