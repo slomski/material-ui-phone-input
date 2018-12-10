@@ -1,6 +1,5 @@
-import countryNames from './countries.json';
-import { ICountry } from '../../types';
-
+import countryNames from './countries';
+import { ICountry } from './PhoneInput';
 const countries: ICountry[] = [];
 
 countryNames.forEach(country => {
