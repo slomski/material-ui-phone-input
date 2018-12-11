@@ -1,5 +1,3 @@
-// no xk flag
-
 import React from 'react';
 import { withStyles, StyledComponentProps, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -119,6 +117,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
   public static defaultProps: Partial<IPhoneNumberInfoProps> = {
     metadata: metadata,
   };
+  popperNode: HTMLElement | null = null;
   state = {
     isOpen: false,
     suggestion: '',
@@ -166,7 +165,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
     }
   }
 
-  popperNode: React.Ref<any> | React.RefObject<any> | null = null;
+  // popperNode: React.Ref<any> | React.RefObject<any> | null = null;
 
   onSuggestionSelected = (event: React.SyntheticEvent, suggestion: string) => {
     const { onChange } = this.props;
@@ -241,8 +240,9 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
   };
 
   render() {
-    const { anchorEl, error, numberInfo, isOpen, suggestion, suggestions } = this.state;
+    const { error, numberInfo, isOpen, suggestion, suggestions } = this.state;
     const { value, defaultCountry, textFieldProps } = this.props;
+    // console.log(this.popperNode && this.popperNode.parent);
     const suggestionsToRender = suggestions.map((s: ISuggestion) => {
       return (
         <ListItem button onClick={e => this.onSuggestionSelected(e, s.label)}>
@@ -251,9 +251,14 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       );
     });
     return (
-      <React.Fragment>
+      <div
+        ref={node => {
+          this.popperNode = node;
+        }}
+      >
         <TextField
           onChange={this.handleInputChange}
+          fullWidth
           value={value}
           error={Boolean(error)}
           helperText={Boolean(error) && error}
@@ -271,10 +276,10 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
           }}
           {...textFieldProps}
         />
-        <Popper open={isOpen} transition style={{ width: 'auto' }} anchorEl={anchorEl} placement="bottom-start">
+        <Popper open={isOpen} transition disablePortal anchorEl={this.popperNode} placement="bottom-start">
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              <Paper elevation={1}>
+              <Paper elevation={1} style={{ width: this.popperNode ? this.popperNode.clientWidth : undefined }}>
                 <Input
                   autoFocus
                   fullWidth
@@ -296,7 +301,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
             </Fade>
           )}
         </Popper>
-      </React.Fragment>
+      </div>
     );
   }
 }
