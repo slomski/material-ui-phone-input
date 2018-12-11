@@ -64,7 +64,6 @@ interface IPhoneNumberInfoProps extends StyledComponentProps {
   value: string;
   onChange: (value: string) => void;
   metadata: object;
-  defaultCountry: string;
   textFieldProps?: TextFieldProps;
   validationType?: NumberType[];
   onValidationSuccess?: (res: any) => void;
@@ -240,11 +239,10 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
   render() {
     const { error, numberInfo, isOpen, suggestion, suggestions } = this.state;
     const { value, textFieldProps } = this.props;
-    // console.log(this.popperNode && this.popperNode.parent);
     const suggestionsToRender = suggestions.map((s: ISuggestion) => {
       return (
-        <ListItem button onClick={e => this.onSuggestionSelected(e, s.label)}>
-          <ListItemText primary={s.label} key={s.value} />
+        <ListItem button onClick={e => this.onSuggestionSelected(e, s.label)} key={s.value}>
+          <ListItemText primary={s.label} />
         </ListItem>
       );
     });

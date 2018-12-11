@@ -52,7 +52,6 @@ export default class Full extends React.Component<{}> {
         />
         <CardContent>
           <PhoneInput
-            defaultCountry="pl"
             value={value}
             onChange={this.handleChange}
             validationType={['FIXED_LINE', 'MOBILE', 'PAGER']}
