@@ -26,7 +26,7 @@ export default class Simple extends React.Component<{}> {
   render() {
     const { value } = this.state;
     return (
-      <Card elevation={1} style={{ maxWidth: '400px' }}>
+      <Card elevation={1} style={{ maxWidth: '600px' }}>
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe">
