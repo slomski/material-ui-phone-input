@@ -38,7 +38,6 @@ export default class Simple extends React.Component<{}> {
         />
         <CardContent>
           <PhoneInput
-            defaultCountry="pl"
             value={value}
             onChange={this.handleChange}
             textFieldProps={{ label: 'Phone input', fullWidth: true }}

@@ -110,7 +110,7 @@ function getSuggestions(country: string) {
 }
 
 function flagIcon(code: string): React.ReactNode {
-  return <img src={require(`../flags/${code}.gif`)} />;
+  return <img src={require(`../flags/${code}.png`)} />;
 }
 
 class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState> {
@@ -164,8 +164,6 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       });
     }
   }
-
-  // popperNode: React.Ref<any> | React.RefObject<any> | null = null;
 
   onSuggestionSelected = (event: React.SyntheticEvent, suggestion: string) => {
     const { onChange } = this.props;
@@ -241,7 +239,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
 
   render() {
     const { error, numberInfo, isOpen, suggestion, suggestions } = this.state;
-    const { value, defaultCountry, textFieldProps } = this.props;
+    const { value, textFieldProps } = this.props;
     // console.log(this.popperNode && this.popperNode.parent);
     const suggestionsToRender = suggestions.map((s: ISuggestion) => {
       return (
@@ -266,9 +264,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
             startAdornment: (
               <InputAdornment position="start">
                 <Button size="small" style={{ paddingTop: 0, paddingBottom: 0 }} onClick={this.toggleOpen}>
-                  {flagIcon(
-                    numberInfo && numberInfo.country ? numberInfo.country.toLowerCase() : defaultCountry.toLowerCase()
-                  )}
+                  {flagIcon(numberInfo && numberInfo.country ? numberInfo.country.toLowerCase() : 'intl')}
                   <ArrowDropDown />
                 </Button>
               </InputAdornment>
