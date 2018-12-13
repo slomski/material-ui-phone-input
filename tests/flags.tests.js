@@ -255,3 +255,17 @@ test.each(countries)('find a flag file for %s', a => {
   const file = path.resolve(__dirname, `../src/flags/${countryCode}.png`);
   expect(fs.existsSync(file)).toBe(true);
 });
+
+const ccs = [];
+fs.readdirSync(path.resolve(__dirname, '../src/flags')).forEach(file => {
+  ccs.push(file);
+});
+
+test.each(ccs)('find a country for file %s', a => {
+  const country = a.substr(0, a.indexOf('.')).toUpperCase();
+  expect(countries.includes(country)).toBe(true);
+});
+
+test('number of countries must match number of flags', () => {
+  expect(countries.length).toBe(ccs.length);
+});
