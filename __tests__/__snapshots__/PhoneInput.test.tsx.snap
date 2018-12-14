@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhoneInput no value renders correctly 1`] = `
+<div>
+  <div
+    className="MuiFormControl-root-4 MuiFormControl-fullWidth-7"
+  >
+    <div
+      className="MuiInputBase-root-21 MuiInput-root-8 MuiInput-underline-12 MuiInputBase-fullWidth-30 MuiInput-fullWidth-15 MuiInputBase-formControl-22 MuiInput-formControl-9 MuiInputBase-adornedStart-25"
+      onClick={[Function]}
+    >
+      <div
+        className="MuiInputAdornment-root-38 MuiInputAdornment-positionStart-40"
+      >
+        <button
+          className="MuiButtonBase-root-68 MuiButton-root-42 MuiButton-text-44 MuiButton-flat-47 MuiButton-sizeSmall-65"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "paddingBottom": 0,
+              "paddingTop": 0,
+            }
+          }
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-43"
+          >
+            <img
+              src="test-file-stub"
+            />
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-71"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-80"
+          />
+        </button>
+      </div>
+      <input
+        aria-invalid={false}
+        className="MuiInputBase-input-31 MuiInput-input-16 MuiInputBase-inputAdornedStart-36"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={false}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PhoneInput with value renders correctly 1`] = `
+<div>
+  <div
+    className="MuiFormControl-root-4 MuiFormControl-fullWidth-7"
+  >
+    <div
+      className="MuiInputBase-root-21 MuiInput-root-8 MuiInput-underline-12 MuiInputBase-fullWidth-30 MuiInput-fullWidth-15 MuiInputBase-formControl-22 MuiInput-formControl-9 MuiInputBase-adornedStart-25"
+      onClick={[Function]}
+    >
+      <div
+        className="MuiInputAdornment-root-38 MuiInputAdornment-positionStart-40"
+      >
+        <button
+          className="MuiButtonBase-root-68 MuiButton-root-42 MuiButton-text-44 MuiButton-flat-47 MuiButton-sizeSmall-65"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "paddingBottom": 0,
+              "paddingTop": 0,
+            }
+          }
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-43"
+          >
+            <img
+              src="test-file-stub"
+            />
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-71"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-80"
+          />
+        </button>
+      </div>
+      <input
+        aria-invalid={false}
+        className="MuiInputBase-input-31 MuiInput-input-16 MuiInputBase-inputAdornedStart-36"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={false}
+        type="text"
+        value="+48501502503"
+      />
+    </div>
+  </div>
+</div>
+`;
