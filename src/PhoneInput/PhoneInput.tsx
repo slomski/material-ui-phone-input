@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { withStyles, StyledComponentProps, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -10,11 +10,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import Paper from '@material-ui/core/Paper';
-import deburr from 'lodash/deburr';
+import * as _ from 'lodash';
 import Popper from '@material-ui/core/Popper';
 import { CountryCode, CountryCallingCode, NationalNumber, Extension, NumberType, PhoneNumber } from 'libphonenumber-js';
 import { parsePhoneNumber } from 'libphonenumber-js/custom';
-import metadata from 'libphonenumber-js/metadata.min.json';
+import * as metadata from 'libphonenumber-js/metadata.min.json';
 import Fade from '@material-ui/core/Fade';
 import countries from './countries';
 
@@ -93,7 +93,7 @@ const styles = createStyles({
 });
 
 function getSuggestions(country: string) {
-  const inputValue = deburr(country.trim()).toLowerCase();
+  const inputValue = _.deburr(country.trim()).toLowerCase();
   const inputLength = country.length;
   let count = 0;
 
@@ -127,7 +127,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       countryCallingCode: '',
       nationalNumber: '',
       number: '',
-      country: 'pl' as CountryCode,
+      country: '001' as CountryCode,
       phone: '',
       isPossible: false,
       isValid: false,
@@ -214,10 +214,20 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
       if (validationType) {
         if (validationType.includes(phoneNumber.getType()) && phoneNumber.isValid()) {
           onValidationSuccess && onValidationSuccess(response);
-          this.setState({ error: '', numberInfo: phoneNumber });
+          const suggestion = this.findSuggestionByCode(phoneNumber.country);
+          console.log(suggestion);
+          this.setState({
+            error: '',
+            numberInfo: phoneNumber,
+            suggestion,
+          });
         } else {
           onValidationFailed && onValidationFailed(response);
-          this.setState({ error: errors.INVALID_NUMBER, numberInfo: phoneNumber });
+          this.setState({
+            error: errors.INVALID_NUMBER,
+            numberInfo: phoneNumber,
+            suggestion: this.findSuggestionByCode(phoneNumber.country),
+          });
         }
       } else {
         phoneNumber = parsePhoneNumber(value, metadata);
@@ -231,6 +241,14 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
   };
 
   findCountryByName = (name: string) => suggestionsLists.find(c => c.label.toLowerCase() === name.toLowerCase());
+
+  findSuggestionByCode = (code: CountryCode | undefined) => {
+    if (code) {
+      const suggestion = suggestionsLists.find(c => c.value.toLowerCase() === code.toLowerCase());
+      return (suggestion && suggestion.label) || '';
+    }
+    return '';
+  };
 
   handleSuggestionBlur = () => {
     this.setState({ isOpen: false });
@@ -262,7 +280,7 @@ class PhoneInput extends React.Component<IPhoneNumberInfoProps, IPhoneInputState
             startAdornment: (
               <InputAdornment position="start">
                 <Button size="small" style={{ paddingTop: 0, paddingBottom: 0 }} onClick={this.toggleOpen}>
-                  {flagIcon(numberInfo && numberInfo.country ? numberInfo.country.toLowerCase() : 'intl')}
+                  {flagIcon(numberInfo && numberInfo.country ? numberInfo.country.toLowerCase() : '001')}
                   <ArrowDropDown />
                 </Button>
               </InputAdornment>
