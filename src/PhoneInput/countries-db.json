@@ -1,5 +1,10 @@
 [
   {
+    "name": "International",
+    "dialCode": "+800",
+    "code": "001"
+  },
+  {
     "name": "Afghanistan",
     "dialCode": "+93",
     "code": "AF"
@@ -750,6 +755,11 @@
     "code": "MA"
   },
   {
+    "name": "Western Sahara",
+    "dialCode": "+212",
+    "code": "EH"
+  },
+  {
     "name": "Mozambique",
     "dialCode": "+258",
     "code": "MZ"
@@ -783,6 +793,16 @@
     "name": "Netherlands Antilles",
     "dialCode": "+599",
     "code": "AN"
+  },
+  {
+    "name": "Netherlands Antilles",
+    "dialCode": "+599",
+    "code": "BQ"
+  },
+  {
+    "name": "Curaçao",
+    "dialCode": "+599",
+    "code": "CW"
   },
   {
     "name": "New Caledonia",
@@ -930,6 +950,16 @@
     "code": "SH"
   },
   {
+    "name": "Saint Helena, Ascension and Tristan Da Cunha",
+    "dialCode": "+290",
+    "code": "TA"
+  },
+  {
+    "name": "Saint Helena, Ascension and Tristan Da Cunha",
+    "dialCode": "+290",
+    "code": "AC"
+  },
+  {
     "name": "Saint Kitts and Nevis",
     "dialCode": "+1869",
     "code": "KN"
@@ -943,6 +973,11 @@
     "name": "Saint Martin",
     "dialCode": "+590",
     "code": "MF"
+  },
+  {
+    "name": "Sint Maarten",
+    "dialCode": "+1721",
+    "code": "SX"
   },
   {
     "name": "Saint Pierre and Miquelon",
