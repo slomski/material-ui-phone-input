@@ -10,7 +10,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import Paper from '@material-ui/core/Paper';
-import * as _ from 'lodash';
 import Popper from '@material-ui/core/Popper';
 import { CountryCode, CountryCallingCode, NationalNumber, Extension, NumberType, PhoneNumber } from 'libphonenumber-js';
 import { parsePhoneNumber } from 'libphonenumber-js/custom';
@@ -93,7 +92,7 @@ const styles = createStyles({
 });
 
 function getSuggestions(country: string) {
-  const inputValue = _.deburr(country.trim()).toLowerCase();
+  const inputValue = country.trim().toLowerCase();
   const inputLength = country.length;
   let count = 0;
 

@@ -22,7 +22,8 @@
     "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*", "tests/PhoneInput.test.tsx", "__mocks__/fileMock.js"],
   "exclude": ["node_modules", "build", "scripts", ".history", ".cache", ".static_storybook"]
