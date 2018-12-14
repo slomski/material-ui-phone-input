@@ -6,6 +6,7 @@
   "scripts": {
     "test-watch": "./node_modules/.bin/jest --no-cache --watch $2",
     "test": "./node_modules/.bin/jest --no-cache",
+    "coverage": "./node_modules/.bin/jest --no-cache --coverage",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "deploy-storybook": "storybook-to-ghpages",
     "build": "rimraf ./build/** & ./node_modules/.bin/webpack --mode=production"

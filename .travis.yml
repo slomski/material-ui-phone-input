@@ -10,3 +10,7 @@ script:
   - yarn test
   - yarn build
   - yarn deploy-storybook -- --ci
+  - yarn coverage
+
+# Send coverage data to Coveralls
+after_script: 'cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js'
