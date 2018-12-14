@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/slomski/material-ui-phone-input.svg?branch=master)](https://travis-ci.org/slomski/material-ui-phone-input)
 
-Material UI input component for internationl phone number input
+[![Coverage Status](https://coveralls.io/repos/github/slomski/material-ui-phone-input/badge.svg?branch=master)](https://coveralls.io/github/slomski/material-ui-phone-input?branch=master)
+
+Material UI input component for international phone number input
 
 [You can find storybook demo here](https://slomski.github.io/material-ui-phone-input/)
 
