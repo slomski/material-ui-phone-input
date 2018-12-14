@@ -1,8 +1,6 @@
 # material-ui-phone-input
 
-[![Build Status](https://travis-ci.org/slomski/material-ui-phone-input.svg?branch=master)](https://travis-ci.org/slomski/material-ui-phone-input)
-
-[![Coverage Status](https://coveralls.io/repos/github/slomski/material-ui-phone-input/badge.svg?branch=master)](https://coveralls.io/github/slomski/material-ui-phone-input?branch=master)
+[![Build Status](https://travis-ci.org/slomski/material-ui-phone-input.svg?branch=master)](https://travis-ci.org/slomski/material-ui-phone-input)[![Coverage Status](https://coveralls.io/repos/github/slomski/material-ui-phone-input/badge.svg?branch=master)](https://coveralls.io/github/slomski/material-ui-phone-input?branch=master)
 
 Material UI input component for international phone number input
 
@@ -10,13 +8,13 @@ Material UI input component for international phone number input
 
 ## Usage
 
-This component acepts following props:
+This component accepts following props:
 
 | Property        |                     Desription                     | Default value |
 | --------------- | :------------------------------------------------: | ------------: |
 | value           |             value passed to the input              |  empty string |
 | onChange        |          method called when input changes          |          none |
-| textFieldProps? | props passed down to the MUI TextField componenent |         nonel |
+| textFieldProps? | props passed down to the MUI TextField componenent |          none |
 
 ## Dependencies
 
