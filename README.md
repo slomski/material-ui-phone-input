@@ -1,5 +1,6 @@
 # material-ui-phone-input
 
+[![npm version](https://badge.fury.io/js/%40slomski%2Fmaterial-ui-phone-input.svg)](https://badge.fury.io/js/%40slomski%2Fmaterial-ui-phone-input)
 [![Build Status](https://travis-ci.org/slomski/material-ui-phone-input.svg?branch=master)](https://travis-ci.org/slomski/material-ui-phone-input)
 [![Coverage Status](https://coveralls.io/repos/github/slomski/material-ui-phone-input/badge.svg?branch=master)](https://coveralls.io/github/slomski/material-ui-phone-input?branch=master)
 
