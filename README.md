@@ -8,13 +8,12 @@ Material UI input component for internationl phone number input
 
 This component acepts following props:
 
-| Property       |                      Desription                       |         Default value |
-| -------------- | :---------------------------------------------------: | --------------------: |
-| defaultCountry | country code to be displayed when no country detected |        none, required |
-| value          |               value passed to the input               | empty string,optional |
-| onChange       |           method called when input changes            |         none,required |
-| textFieldProps |  props passed down to the MUI TextField componenent   |        none, optional |
+| Property        |                     Desription                     | Default value |
+| --------------- | :------------------------------------------------: | ------------: |
+| value           |             value passed to the input              |  empty string |
+| onChange        |          method called when input changes          |          none |
+| textFieldProps? | props passed down to the MUI TextField componenent |         nonel |
 
 ## Dependencies
 
-Component utilises [`libphonenumber-js`](https://github.com/catamphetamine/libphonenumber-js) library for detecting countries and validating input.
+Component is using [`libphonenumber-js`](https://github.com/catamphetamine/libphonenumber-js) library for detecting countries and validating input.
