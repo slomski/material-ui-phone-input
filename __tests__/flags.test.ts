@@ -1,7 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
-const countries = [
+import * as countries from '../src/PhoneInput/countries';
+import { ICountry } from '../src/PhoneInput/PhoneInput';
+
+const codes = [
   '001',
   'AC',
   'AD',
@@ -250,22 +253,27 @@ const countries = [
   'ZW',
 ];
 
-test.each(countries)('find a flag file for %s', a => {
+test.each(codes)('find a flag file for %s', a => {
   const countryCode = a.toLowerCase();
   const file = path.resolve(__dirname, `../src/flags/${countryCode}.png`);
   expect(fs.existsSync(file)).toBe(true);
 });
 
-const ccs = [];
+const ccs: string[] = [];
 fs.readdirSync(path.resolve(__dirname, '../src/flags')).forEach(file => {
   ccs.push(file);
 });
 
 test.each(ccs)('find a country for file %s', a => {
   const country = a.substr(0, a.indexOf('.')).toUpperCase();
-  expect(countries.includes(country)).toBe(true);
+  expect(codes.includes(country)).toBe(true);
 });
 
 test('number of countries must match number of flags', () => {
-  expect(countries.length).toBe(ccs.length);
+  expect(codes.length).toBe(ccs.length);
+});
+
+test.each(codes)('find a country for code %s', a => {
+  const country: ICountry | undefined = countries.default.find(e => e.code === a);
+  expect(country).toBeTruthy();
 });
