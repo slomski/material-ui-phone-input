@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add -D test-file-stub
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add -D rimraff
 
 PATH: 
   /home/igor/bin:/home/igor/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/test-file-stub: Not found
+  Error: https://registry.yarnpkg.com/rimraff: Not found
       at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:65894:18)
       at Request.self.callback (/usr/share/yarn/lib/cli.js:129018:22)
       at emitTwo (events.js:126:13)
@@ -46,7 +46,6 @@ npm manifest:
       "@storybook/react": "^4.0.2",
       "@storybook/storybook-deployer": "^2.3.0",
       "@types/jest": "^23.3.10",
-      "@types/lodash": "^4.14.118",
       "@types/material-ui": "^0.21.5",
       "@types/node": "^10.12.15",
       "@types/react-test-renderer": "^16.0.3",
@@ -57,7 +56,6 @@ npm manifest:
       "babel-loader": "^8.0.4",
       "css-loader": "^2.0.0",
       "file-loader": "^2.0.0",
-      "identity-obj-proxy": "^3.0.0",
       "jest": "^23.6.0",
       "react-docgen-typescript-webpack-plugin": "^1.1.0",
       "react-test-renderer": "^16.6.3",
@@ -76,7 +74,6 @@ npm manifest:
       "@material-ui/core": "^3.6.1",
       "@material-ui/icons": "^3.0.1",
       "libphonenumber-js": "^1.6.8",
-      "lodash": "^4.17.11",
       "react": "^16.6.3",
       "react-dom": "^16.6.3"
     },
@@ -1249,10 +1246,17 @@ Lockfile:
       csstype "^2.0.0"
       indefinite-observable "^1.0.1"
   
-  "@types/lodash@^4.14.118":
-    version "4.14.118"
-    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.118.tgz#247bab39bfcc6d910d4927c6e06cbc70ec376f27"
-    integrity sha512-iiJbKLZbhSa6FYRip/9ZDX6HXhayXLDGY2Fqws9cOkEQ6XeKfaxB0sC541mowZJueYyMnVUmmG+al5/4fCDrgw==
+  "@types/lodash-es@^4.17.1":
+    version "4.17.1"
+    resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.1.tgz#56745e5411558362aeca31def918f88f725dd29d"
+    integrity sha512-3EDZjphPfdjnsWvY11ufYImFMPyQJwIH1eFYRgWQsjOctce06fmNgVf5sfvXBRiaS1o0X50bAln1lfWs8ZO3BA==
+    dependencies:
+      "@types/lodash" "*"
+  
+  "@types/lodash@*", "@types/lodash@^4.14.119":
+    version "4.14.119"
+    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.119.tgz#be847e5f4bc3e35e46d041c394ead8b603ad8b39"
+    integrity sha512-Z3TNyBL8Vd/M9D9Ms2S3LmFq2sSMzahodD6rCS9V2N44HUMINb75jNkSuwAx7eo2ufqTdfOdtGQpNbieUjPQmw==
   
   "@types/material-ui@^0.21.5":
     version "0.21.5"
@@ -4484,11 +4488,6 @@ Lockfile:
       ajv "^5.3.0"
       har-schema "^2.0.0"
   
-  harmony-reflect@^1.4.6:
-    version "1.6.1"
-    resolved "https://registry.yarnpkg.com/harmony-reflect/-/harmony-reflect-1.6.1.tgz#c108d4f2bb451efef7a37861fdbdae72c9bdefa9"
-    integrity sha512-WJTeyp0JzGtHcuMsi7rw2VwtkvLa+JyfEKJCFyfcS0+CDkjQ5lHPu7zEhFZP+PDSRrEgXa5Ah0l1MbgbE41XjA==
-  
   has-ansi@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"
@@ -4761,13 +4760,6 @@ Lockfile:
     integrity sha512-bA/xGiwWM17qjllIs9X/y0EjsB7e0AV08F3OL8UPsoNkNRibIuu8f1eKTnQ8QO1DteKKTxTUAn+IEWUToIwGOA==
     dependencies:
       postcss "^7.0.5"
-  
-  identity-obj-proxy@^3.0.0:
-    version "3.0.0"
-    resolved "https://registry.yarnpkg.com/identity-obj-proxy/-/identity-obj-proxy-3.0.0.tgz#94d2bda96084453ef36fbc5aaec37e0f79f1fc14"
-    integrity sha1-lNK9qWCERT7zb7xarsN+D3nx/BQ=
-    dependencies:
-      harmony-reflect "^1.4.6"
   
   ieee754@^1.1.4:
     version "1.1.12"
@@ -5990,6 +5982,11 @@ Lockfile:
     dependencies:
       p-locate "^3.0.0"
       path-exists "^3.0.0"
+  
+  lodash-es@^4.17.11:
+    version "4.17.11"
+    resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
+    integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
   
   lodash.debounce@^4.0.8:
     version "4.0.8"

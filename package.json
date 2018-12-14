@@ -7,7 +7,7 @@
     "test": "./node_modules/.bin/jest --no-cache --watch $2",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "deploy-storybook": "storybook-to-ghpages",
-    "build": "./node_modules/.bin/webpack --mode=production"
+    "build": "rimraf ./build/** & ./node_modules/.bin/webpack --mode=production"
   },
   "author": "Igor Słomski",
   "license": "MIT",
@@ -30,6 +30,7 @@
     "jest": "^23.6.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "react-test-renderer": "^16.6.3",
+    "rimraf": "^2.6.2",
     "style-loader": "^0.23.1",
     "ts-jest": "^23.10.5",
     "ts-loader": "^5.3.1",

@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './build/lib'),
     filename: 'index.js',
-    library: '',
+    library: 'material-ui-phone-input',
     libraryTarget: 'commonjs',
   },
   module: {
