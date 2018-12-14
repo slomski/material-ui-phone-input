@@ -8,3 +8,5 @@ install:
 
 script:
   - yarn test
+  - yarn build
+  - yarn deploy-storybook
