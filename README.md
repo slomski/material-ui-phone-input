@@ -1,4 +1,6 @@
-# material-ui-phone-input [![Build Status](https://travis-ci.org/slomski/material-ui-phone-input.svg?branch=master)](https://travis-ci.org/slomski/material-ui-phone-input)
+# material-ui-phone-input
+
+[![Build Status](https://travis-ci.org/slomski/material-ui-phone-input.svg?branch=master)](https://travis-ci.org/slomski/material-ui-phone-input)
 
 Material UI input component for internationl phone number input
 
