@@ -1,0 +1,1 @@
+{"version":3,"file":"static/iframe.9bf40c675dbe8fd64b05.bundle.js","sources":["webpack:///./src/index.ts"],"sourcesContent":["import PhoneInput from './PhoneInput/PhoneInput';\n\n// eslint-disable-next-line\n(window as any).__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;\n\nexport default PhoneInput;\n"],"mappings":"AAAA","sourceRoot":""}
