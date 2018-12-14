@@ -1,10 +1,11 @@
 module.exports = {
-  moduleFileExtensions: ['ts', 'js'],
+  roots: ['<rootDir>'],
   transform: {
-    '^.+\\.(ts|tsx)$': '<rootDir>/preprocessor.js',
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  testURL: 'http://localhost',
-  testMatch: ['**/tests/*.(ts|js)'],
-  testPathIgnorePatterns: ['<rootDir>/.history/', '<rootDir>/node_modules/'],
-  moduleDirectories: ['node_modules'],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleNameMapper: {
+    '.+\\.(png)$': '<rootDir>/__mocks__/fileMock.js',
+  },
 };
