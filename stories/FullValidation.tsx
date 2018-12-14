@@ -1,5 +1,5 @@
-import React from 'react';
-import metadata from 'libphonenumber-js/metadata.full.json';
+import * as React from 'react';
+import * as metadata from 'libphonenumber-js/metadata.full.json';
 import PhoneInput from '../src';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';

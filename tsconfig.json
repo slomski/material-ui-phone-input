@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "build/lib",
-    "module": "es6",
+    "module": "commonjs",
     "target": "es5",
     "lib": ["es5", "es6", "es7", "es2017", "dom"],
     "sourceMap": true,
@@ -20,11 +20,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "declaration": true,
-    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/PhoneInput.test.tsx", "__mocks__/fileMock.js"],
   "exclude": ["node_modules", "build", "scripts", ".history", ".cache", ".static_storybook"]
 }

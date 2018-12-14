@@ -1,4 +1,4 @@
-import examples from 'libphonenumber-js/examples.mobile.json';
+import * as examples from 'libphonenumber-js/examples.mobile.json';
 import { getExampleNumber, PhoneNumber, CountryCode } from 'libphonenumber-js';
 import countries from '../src/PhoneInput/countries';
 
