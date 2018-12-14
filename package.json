@@ -4,7 +4,8 @@
   "description": "Material UI Phone input field with selectable countries",
   "main": "./dist/lib/index.ts",
   "scripts": {
-    "test": "./node_modules/.bin/jest --no-cache --watch $2",
+    "test-watch": "./node_modules/.bin/jest --no-cache --watch $2",
+    "test": "./node_modules/.bin/jest --no-cache",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "deploy-storybook": "storybook-to-ghpages",
     "build": "rimraf ./build/** & ./node_modules/.bin/webpack --mode=production"
@@ -25,8 +26,10 @@
     "babel-core": "^7.0.0-0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
+    "coveralls": "^3.0.2",
     "css-loader": "^2.0.0",
     "file-loader": "^2.0.0",
+    "istanbul": "^0.4.5",
     "jest": "^23.6.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "react-test-renderer": "^16.6.3",
